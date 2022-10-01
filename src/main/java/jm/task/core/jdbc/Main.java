@@ -19,7 +19,7 @@ public class Main {
 
         userOne.removeUserById(4);
         userOne.getAllUsers();
-//        userOne.cleanUsersTable();
-//        userOne.dropUsersTable();
+        userOne.cleanUsersTable();
+        userOne.dropUsersTable();
     }
 }
