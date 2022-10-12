@@ -66,13 +66,17 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-        String hqlCommand =String.format("delete User where id = %d", id);
-
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
-            session.createQuery(hqlCommand).executeUpdate();
+            User user = session.get(User.class, id);
+            if (user != null) {
+                session.delete(user);
+                System.out.printf("User(id%d) удален\n", id);
+            } else {
+                System.out.printf("User с id=%d не существует\n", id);
+            }
             session.getTransaction().commit();
-            System.out.printf("User(id%d) удален\n", id);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,13 +88,11 @@ public class UserDaoHibernateImpl implements UserDao {
         String hqlCommand = "from User";
         try (Session session = factory.getCurrentSession()) {
             session.beginTransaction();
-            userList = session.createQuery(hqlCommand).getResultList();
+            userList = session.createQuery(hqlCommand, User.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (User u: userList) {
-            System.out.println(u);
-        }
+        userList.forEach(System.out::println);
         return userList;
     }
 

@@ -3,6 +3,9 @@ import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 import jm.task.core.jdbc.util.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -21,5 +24,6 @@ public class Main {
         userOne.getAllUsers();
         userOne.cleanUsersTable();
         userOne.dropUsersTable();
+
     }
 }
